@@ -10,6 +10,7 @@ public class Knight : MonoBehaviour
     public bool canRun = true;
     AudioSource audio;
     public AudioClip[] audioClips;
+    public AudioClip[] Sword;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -42,8 +43,13 @@ public class Knight : MonoBehaviour
     }
     public void FootFall()
     {
-        Debug.Log("Footstep");
+        
         int randomNumber = Random.Range(0, audioClips.Length);
+        Debug.Log(randomNumber);
         audio.PlayOneShot(audioClips[randomNumber]);
+    }
+    public void SwordSlash()
+    {
+        audio.PlayOneShot(Sword[0]);
     }
 }
