@@ -1,6 +1,11 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.U2D;
+
+
 
 public class Knight : MonoBehaviour
 {
@@ -11,6 +16,8 @@ public class Knight : MonoBehaviour
     AudioSource audio;
     public AudioClip[] audioClips;
     public AudioClip[] Sword;
+    int randomNumber;
+    
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -29,7 +36,7 @@ public class Knight : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
-            canRun = false;
+           canRun = false;
         }
         if (canRun)
         {
@@ -44,8 +51,9 @@ public class Knight : MonoBehaviour
     public void FootFall()
     {
         
-        int randomNumber = Random.Range(0, audioClips.Length);
+        randomNumber = Random.Range(0, audioClips.Length);
         Debug.Log(randomNumber);
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         audio.PlayOneShot(audioClips[randomNumber]);
     }
     public void SwordSlash()
