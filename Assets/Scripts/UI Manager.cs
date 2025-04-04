@@ -5,12 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
+    //read this one last
+    //Welcome to the UI Manager script, a script that handles mostly stuff non-UI related. It also happens to be my favourite script
+
+    //the only UI related stuff
     public GameObject winLosePanel;      
     public TMP_Text winLoseText;             
     public Button rematchButton;         
-
-    public Transform player1StartPos;    
-    public Transform player2StartPos;    
+    //functions for rematch 
     public PlayerHealth player1Health;        
     public PlayerHealth player2Health;         
     public ItemSpawner itemSpawner;
@@ -22,16 +24,18 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        //activates the UI on player death (told to by health script)
         if (Instance == null)
         {
             Instance = this;
         }
+        //if Instance != null, i.e player != 0 health, don't display the UI
         else
         {
             Destroy(gameObject);
         }
     }
-
+    //Told by health script who won, then writes it down
     public void ShowWinLoseUI(string winner)
     {
 
@@ -41,7 +45,15 @@ public class UIManager : MonoBehaviour
         
     }
 
-
+    //This here, is my favourite part as it connects all of the scripts together.
+    //The ItemSpawner tells the Player Script what weapon it has
+    //The Player script tells the Projectile Script to fire and at what damage and speed
+    //The Projectile script tells the Health Script its been hit, and how much damage it takes
+    //The Health Script tells the UI Manager Script that its at 0, and the UI needs to appear
+    //The UI Script makes the Rematch Button appear
+    //The Rematch Button tells the Health to reset, the Players to return to starting position, the weapons to unequip, the UI to disappear and the items to respawn
+    //Start again, completely full circle.
+    //Beautiful
     public void StartRematch()
     {
 
@@ -67,4 +79,5 @@ public class UIManager : MonoBehaviour
 
         winLosePanel.SetActive(false);
     }
+    //And that is everything. Is it well coded? I dunno probably not. Does it work? Arguably. And thats good enough for me.
 }
